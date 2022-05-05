@@ -1,0 +1,115 @@
+<html>
+	<head>
+		<title>Jeu de tir</title>
+		<meta charset='utf-8'/>
+		<style>
+			div#terrain_de_jeu { 
+			  	height: 90%;
+			  	width: 90%;
+			  	background-color: rgb(252, 124, 188);
+			}
+		</style>
+	</head>
+	<body>
+		<p>Clique vite sur le monstre !</p>
+		<div id='terrain_de_jeu'> 
+			<div>Score : <span id='score'>0</span></div>
+			<div id='monstre' style='background-color:rgb(195, 0, 255); position:absolute;'>monstre </div>
+		</div>
+		
+		<script>
+
+			var m1=document.getElementById("monstre");
+			m1.removeChild(m1.childNodes[0]); //cacher le monstre initial	
+
+			//Classe monstre (question 3)
+			class Monstre {
+				constructor(num) {
+					this.num = num;
+					this.element=document.getElementById("monstre");
+
+					var timer=setTimeout(function(){ fin_du_jeu(); }, 5000); //question 1
+					var terrain=document.getElementById("terrain_de_jeu");
+					var monstre=document.getElementById("monstre");
+
+					//Clonage (question 3)
+					var clone = document.getElementById("monstre").cloneNode(true);
+					terrain.appendChild(clone);
+
+					//Position aléatoire (question 2)
+					monstre.style.top = ""+Math.floor(Math.random() * (terrain.offsetHeight-50) +50)+"px"; 
+					monstre.style.right = ""+Math.floor(Math.random() * (terrain.offsetWidth-150) +150)+"px";
+
+					 //Change l'id du monstre
+					 monstre.id = "monstre"+ num; 
+
+					//Gestion du temps
+					document.getElementById("monstre"+num).addEventListener('click', function() {
+						clearTimeout(timer); // Le compte à rebours est annulé
+						score(); //incrémente le score
+						document.getElementById("monstre"+num).remove(); 
+					});
+
+					//Question 8 : chaque monstre change de couleur, au bout de 3,5 secondes il doit devenir rouge
+					var color=setTimeout(function(){ 
+						if(!game_over){
+							img.src = "monstre_rouge.jpg";		
+							var div = document.getElementById("monstre"+num);
+							div.appendChild(img); // apparition des monstres rouges
+							img.setAttribute("style", "width : 50px;");	// changer la taille de l'image (monstre_rouge)	
+						}			
+					}, 3500);
+
+					var img = document.createElement("img");
+					img.src = "monstre_violet.jpg";
+					var div = document.getElementById("monstre"+num);
+					div.appendChild(img);
+					img.setAttribute("style", "width : 50px;");		// idem on modifie la taille de l'image mais des monstres de bases
+				}
+			}
+
+			//Création de monstres(boucle): question 4
+			for(var i=1;i<4;i++){
+				const p = new Monstre(i);
+			}
+
+			var timer_global;	// le timer global
+			var temps=0	// le nombre de fois que le timer s'est déclenchée
+			var duree=500	// temps écoulé à chaque timer
+			var j=4;
+
+			action();
+
+			// Question 5
+			function action(){
+				temps++;
+				if (temps%2==0){	
+					new Monstre(j);
+					j++;
+				}
+				timer_global = setTimeout(function() { 	// a chaque timer, ça effectue la fonction action 
+					action();
+				}, duree);
+			}
+			
+	
+			//Score (question 6)
+			var points = 0;
+			function score() {
+				points++; //incrémentation du nombre de point
+				document.getElementById("score").innerHTML = points; //affichage du score sur la page html
+			}
+			
+			// Question 7 
+			var game_over = false; 
+			function fin_du_jeu() { //fonction qui permet de finir proprement le jeu
+				if (!game_over) {
+					clearTimeout(timer_global); //desactiver le timer global
+					alert('Fin du jeu'); 
+					game_over = true;
+				}
+			}
+			
+		</script>
+	<body>
+</html>
