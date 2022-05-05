@@ -10,14 +10,14 @@
 * [Credits](#credits)
 
 
-Voici un apperçu du perso 😍
+Voici un aperçu du perso 😍
 
 ![image](https://user-images.githubusercontent.com/76633646/166942396-67933f4d-c626-48a5-ac01-eea1b6641da1.png)
 
 
 ## <a name='story'>Story 🦊</a>
 
-* Le joueur ait 2s pour cliquer sur le monstre. S’il clique à temps, le monstre disparaît, sinon « Fin du jeu » s’affiche.
+* Le joueur a 2s pour cliquer sur le monstre. S’il clique à temps, le monstre disparaît, sinon « Fin du jeu » s’affiche.
 * Le monstre doit apparaître à une position aléatoire dans tout le terrain de jeu.
 * Construire les monstres.
 * Crée 5 monstres au lieu d’un seul.
